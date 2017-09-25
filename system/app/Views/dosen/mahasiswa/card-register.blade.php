@@ -286,7 +286,7 @@ Master Data Mahasiswa
 		$.ajax({
 	        url : "{{url('api/ajar/')}}/"+id,
 	        success : function(result) {
-	        	url = "{{url('dosen/mahasiswa/card-register')}}";
+	        	url = "{{url('mahasiswa/card-register')}}";
 	        	if(result){
 	        		url+="/"+result.id_kelas;
 	        	}

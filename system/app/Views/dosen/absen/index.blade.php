@@ -81,7 +81,7 @@ Absensi
                                 <td>{{$item->ajar->nama}}</td>
                                 <td>{{$item->pertemuan_no}}</td>
                                 <td>{{$item->kehadiran}}%</td>
-                                <td><a href="{{url("dosen/absen/$item->id")}}" class="btn btn-sm btn-primary float-right"><i class="fa fa-chevron-right"></i></a></td>
+                                <td><a href="{{url("absen/$item->id")}}" class="btn btn-sm btn-primary float-right"><i class="fa fa-chevron-right"></i></a></td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -111,7 +111,7 @@ Absensi
                 },
                 success : function(result) {
                     console.log(result);
-                    url = "{{url('dosen/absen')}}";
+                    url = "{{url('absen')}}";
                     data = $.parseJSON(result);
                     url+=data.url;
                     $("#card_absen_scan").notify(data.msg, data.status);

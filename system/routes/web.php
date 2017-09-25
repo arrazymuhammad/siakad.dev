@@ -16,13 +16,14 @@ Route::get('/', function () {
 });
 
 
-Route::group(['prefix' => 'dosen', 'namespace' => 'Dosen', 'middleware' => ['auth']], function(){
+Route::group(['domain' => 'dosen.siakad.dev', 'namespace' => 'Dosen', 'middleware' => ['auth']], function(){
 		Route::get('/', "DashboardController@index");
 		Route::get('absen', "AbsenController@index");
 		Route::get('absen/{id_pertemuan}', 'AbsenController@absen');
 		Route::post('absen/{id_pertemuan}', 'AbsenController@materi');
 		Route::get('mahasiswa', 'MahasiswaController@index');
 		Route::get('mahasiswa/card-register/{id_kelas?}', 'MahasiswaController@cardRegister');
+		Route::get('mahasiswa/{id_mahasiswa}', 'MahasiswaController@show');
 		Route::resource("matakuliah", 'MataKuliahController');
 });
 
@@ -34,7 +35,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 		Route::resource("dosen", "DosenController");
 		Route::resource("matakuliah", "MataKuliahController");
 		Route::resource("kelas", "KelasController");
-		Route::resource("tahun_ajar", "TahunAjarController");
+		Route::resource("tahun-ajar", "TahunAjarController");
 	});
 });
 

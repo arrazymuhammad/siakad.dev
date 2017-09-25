@@ -12,8 +12,8 @@ Master Data
 			<div class="dropdown">
 				<button type="button" id="closeCard" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
 				<div aria-labelledby="closeCard" class="dropdown-menu has-shadow" style="display: none;">
-					<a href="{{url('dosen/mahasiswa/card-register')}}" class="btn btn-block text-left p10 btn-sm "><i class="fa fa-pencil"></i> Register Kartu</a>
-					<a href="{{url('admin/setting/card/reset')}}" class="btn btn-block text-left p10 btn-sm " onclick="return confirm('Yakin Mereset Kartu?')"><i class="fa fa-times"></i> Reset Kartu</a>
+					<a href="{{url('mahasiswa/card-register')}}" class="btn btn-block text-left p10 btn-sm "><i class="fa fa-pencil"></i> Register Kartu</a>
+					<a href="{{url('setting/card/reset')}}" class="btn btn-block text-left p10 btn-sm " onclick="return confirm('Yakin Mereset Kartu?')"><i class="fa fa-times"></i> Reset Kartu</a>
 				</div>
 			</div>
 		</div>

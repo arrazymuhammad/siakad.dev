@@ -41,16 +41,19 @@ Mata Kuliah {{$ajar->nama}}
 						<h2 class="h3">Peserta Kuliah   </h2>
 					</div>
 					<div class="card-body no-padding">
-						@foreach ($ajar->kelas->mahasiswa->chunk(4) as $chunk)
+						@foreach ($ajar->kelas->mahasiswa->chunk(3) as $chunk)
 							<div class="row">
 								@foreach ($chunk as $item)
-						            <div class="col-md-3">
+						            <div class="col-md-4">
 										<div class="item d-flex align-items-center">
 											<div class="image"><img src="{{url('public')}}/img/avatar-1.jpg" alt="..." class="img-fluid"></div>
-											<div class="text">
-												<a href="{{url("/admin/master/mahasiswa/$item->id")}}">
+											<div class="text" style="width:100%">
+												<a href="{{url("mahasiswa/$item->id")}}">
 													<h3 class="h5">{{$item->nama}}</h3>
 												</a>
+												<small class="progress">
+													<div role="progressbar" style="width: {{$ajar->getKehadiranMahasiswa(null,$item->id,$ajar)}}%; height: 6px;" title="Kehadiran {{$ajar->getKehadiranMahasiswa(null,$item->id,$ajar)}}%" class="progress-bar {{($ajar->getKehadiranMahasiswa(null,$item->id,$ajar) < 80) ? "bg-red":"bg-info"}}"></div>
+												</small>
 											</div>
 										</div>
 									</div>

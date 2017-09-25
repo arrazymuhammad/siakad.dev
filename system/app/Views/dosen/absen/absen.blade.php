@@ -42,17 +42,21 @@ Absensi
         table_data = "";
         for(i in mahasiswa){
             tropen = "<tr";
-            if(mahasiswa[i].kehadiran < 80) tropen+=" class='bg-danger text-white'";
+            if(mahasiswa[i].user.id_card == null || mahasiswa[i].user.id_card =="skip"){
+                tropen+=" class='bg-danger text-white'";
+            } else if(mahasiswa[i].kehadiran < 80){
+                tropen+=" class='bg-warning text-white'";
+            }
             tropen+=">";
             trclose = "</tr>";
             tdnumber = "<td>"+(parseInt(i)+1)+"</td>";
             tdnim = "<td>"+mahasiswa[i].nim+"</td>";
             tdnama = "<td>"+mahasiswa[i].nama+"</td>";
-            tdkehadiran = "<td>"+mahasiswa[i].kehadiran+"</td>";
-            if(mahasiswa[i].user.id_card){
-                tdopsi = '<td><button class="btn btn-warning" onclick="setStatus('+mahasiswa[i].nim+',\''+mahasiswa[i].user.id_card+'\',\''+mahasiswa[i].nama+'\')"><i class="fa fa-warning"></i></button></td>';
+            tdkehadiran = "<td>"+mahasiswa[i].kehadiran+"%</td>";
+            if(mahasiswa[i].user.id_card == null || mahasiswa[i].user.id_card == "skip"  ){
+                tdopsi = '<td><a href="{{url("mahasiswa/card-register")."/".$pertemuan->ajar->id}}" class="btn btn-primary btn-sm"><i class="fa fa-credit-card"></i></a></td>';
             }else{
-                tdopsi = '<td><a href="{{url("dosen/mahasiswa/card-register")."/".$pertemuan->ajar->id}}" class="btn btn-primary btn-sm"><i class="fa fa-credit-card"></i></a></td>';
+                tdopsi = '<td><button class="btn btn-warning" onclick="setStatus('+mahasiswa[i].nim+',\''+mahasiswa[i].user.id_card+'\',\''+mahasiswa[i].nama+'\')"><i class="fa fa-warning"></i></button></td>';
             }
             table_row = tropen+tdnumber+tdnim+tdnama+tdkehadiran+tdopsi+trclose;
             table_data+=table_row;
@@ -63,7 +67,7 @@ Absensi
         table_data = "";
         for(i in absen){
             tropen = "<tr";
-            if(absen[i].mahasiswa.kehadiran < 80) tropen+=" class='bg-danger text-white'";
+            if(absen[i].mahasiswa.kehadiran < 80) tropen+=" class='bg-warning text-white'";
             tropen+=">";
             trclose = "</tr>";
             tdnumber = "<td>"+(parseInt(i)+1)+"</td>";
@@ -81,7 +85,7 @@ Absensi
         table_data = "";
         for(i in absen){
             tropen = "<tr";
-            if(absen[i].mahasiswa.kehadiran < 80) tropen+=" class='bg-danger text-white'";
+            if(absen[i].mahasiswa.kehadiran < 80) tropen+=" class='bg-warning text-white'";
             tropen+=">";
             trclose = "</tr>";
             tdnumber = "<td>"+(parseInt(i)+1)+"</td>";

@@ -38,4 +38,10 @@ class MahasiswaController extends Controller
 
     }
 
+    public function show($id)
+    {
+        $data['mahasiswa'] = Mahasiswa::find($id);
+        return view('dosen.mahasiswa.show', $data);
+    }
+
 }

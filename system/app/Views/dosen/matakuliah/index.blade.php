@@ -13,7 +13,7 @@ Dashboard
 		</div>
 		<div class="card-body">
 			@foreach($ajar as $item)
-				<a class="project btn btn-block btn-link"  style="text-decoration: none" href="{{url("dosen/matakuliah/$item->id")}}">
+				<a class="project btn btn-block btn-link"  style="text-decoration: none" href="{{url("matakuliah/$item->id")}}">
 					<div class="row bg-white has-shadow">
 						<div class="left-col col-lg-6 d-flex align-items-center justify-content-between">
 							<div class="project-title d-flex align-items-center">

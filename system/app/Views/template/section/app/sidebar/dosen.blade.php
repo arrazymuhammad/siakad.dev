@@ -1,22 +1,22 @@
-                <li class="start {{\App\Helper\ViewHelper::activeRoute('dosen/absen')}}">
-                    <a href="{{url('/dosen/absen')}}">
+                <li class="start {{\App\Helper\ViewHelper::activeRoute('absen')}}">
+                    <a href="{{url('absen')}}">
                         <i class="fa fa-list"></i>
                         <span class="title">Absensi</span>
                     </a>
                 </li>               
-                <li class="start {{\App\Helper\ViewHelper::activeRoute('dosen/matakuliah')}}">
-                    <a href="{{url('/dosen/matakuliah')}}">
+                <li class="start {{\App\Helper\ViewHelper::activeRoute('matakuliah')}}">
+                    <a href="{{url('matakuliah')}}">
                         <i class="icon-list-1"></i>
                         <span class="title">Mata Kuliah</span>
                     </a>
                 </li>               
-                <li class="start {{\App\Helper\ViewHelper::activeRoute('dosen/mahasiswa')}}">
-                    <a href="{{url('/dosen/mahasiswa')}}">
+                <li class="start {{\App\Helper\ViewHelper::activeRoute('mahasiswa')}}">
+                    <a href="{{url('mahasiswa')}}">
                         <i class="fa fa-user"></i>
                         <span class="title">    Mahasiswa </span>
                     </a>
                 </li>
-                <li class="start {{\App\Helper\ViewHelper::activeRoute('dosen/setting')}}">
+                <li class="start {{\App\Helper\ViewHelper::activeRoute('setting')}}">
                     <a href="#setting" aria-expanded="false" data-toggle="collapse">
                         <i class="fa fa-cog"></i>
                         <span class="title">Setting</span>
