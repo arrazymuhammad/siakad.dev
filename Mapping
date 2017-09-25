@@ -1,0 +1,96 @@
+Mahasiswa
+	- Login
+	- Perkuliahan
+		- Jadwal Kuliah
+		- Absen
+			- Absensi Kehadiran
+			- Tingkat Kehadiran
+			- Kompensasi
+		- Materi
+			- Download Materi
+			- Upload Tugas
+	- Nilai
+		- Isi Kuesioner
+		- Lihat Nilai
+		- Unduh KHS
+	- Project / PKL / TA
+		- Daftar Judul
+		- Lihat Pembimbing
+		- Unduh Berkas Bimbingan
+		- Lihat Jadwal Seminar
+		- Unduh Berkas Seminar
+		- Lihat Nilai
+		- Lihat Kompensasi
+
+Dosen
+	- Login
+	- Perkuliahan
+		- Jadwal Kuliah
+		- Absen Mahasiswa
+			- Absen Kehadiran
+			- Review Tingkat Kehadiran
+			- Download BAP
+		- Materi
+			- Upload Materi Perkuliahan
+			- Download Tugas Mahasiswa
+		- Ujian Semester
+			- Upload Soal
+			- Revisi Soal
+	- Nilai
+		- Upload Nilai
+		- Revisi Nilai
+		- Lihat Hasil Kuesioner
+	- Project / PKL / TA
+		- Review Judul
+		- Lihat Bimbingan
+		- Lihat Jadwal
+
+Kajur
+	- Login
+	- Perkuliahan
+		- Review Soal Ujian
+		- Review Nilai
+		- Review Kuesioner
+	- Project / PKL / TA
+		- Review Judul
+		- Penunjukan Pembimbing
+		- Penunjukan Penguji
+	- Report
+		- Review Absensi Mahasiswa
+		- Review Nilai Mahasiswa
+		- Review BAP
+
+Admin
+	- Login
+	- Master
+		- User
+		- Mahasiswa
+		- Dosen
+		- Mata Kuliah
+		- Kelas
+	- Perkuliahan
+		- Penunjukan Dosen MK
+		- Jadwal Kuliah
+		- Absensi
+			- Review Kehadiran
+			- Review Kompensasi	
+		- Ujian
+			- Buat Jadwal
+			- Download Soal
+		- Nilai
+			- Review Nilai
+			- Cetak KHS
+	- Project / PKL / TA
+		- Review Judul
+		- Manajemen Data 
+			- Manajemen Peserta
+				- Status Peserta
+				- Nilai
+				- Kompensasi
+			- Penunjukan Pembimbing
+			- Penunjukan Penguji
+			- Penentuan Jadwal Seminar
+
+
+
+

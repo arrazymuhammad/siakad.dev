@@ -1,0 +1,365 @@
+@extends('template.base.app')
+@section('page-header')
+Absensi
+@endsection
+@section('content')
+@if($pertemuan->materi == "")
+<div class="card">
+    <div class="card-close">
+        
+    </div>
+    <div class="card-body">
+        <div class="semi-bold h3">{{$pertemuan->ajar->nama}}</div>
+        <div class="semi-bold h5"><span>Pertemuan Ke - {{$pertemuan->pertemuan_no}}</span></div>
+        <form action="" method="post" class="form-horizontal">
+            {{csrf_field()}}
+            <input type="hidden" name="id_pertemuan" value="{{$pertemuan->id}}">
+            <div class="form-group">
+                <label for="" class="form-label">Materi Pertemuan</label>
+                <textarea name="materi" id="" rows="10" class="form-control"></textarea>
+            </div>
+            <div class="form-group text-right">
+                <button class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+@else
+<div class="row">
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-close">
+                
+            </div>
+            <div class="card-body">
+                <div class="semi-bold h3">{{$pertemuan->ajar->nama}}</div>
+                <div class="semi-bold h5">Pertemuan Ke - {{$pertemuan->pertemuan_no}}</div>
+                <h4><span class="semi-bold">Scan Kartu</span></h3>
+                <input type="text" name="id_card" id="id_card" class="form-control" onkeypress="scanMahasiswa(event)" autofocus>
+                <hr>
+                <small class="semi-bold">Absensi Terakhir</small>
+                <div class="col-md-12">
+                    <table class="table table-stripped">
+                        <thead>
+                            <tr>
+                                <th>NIM</th>
+                                <th>Nama</th>
+                                <th>Kehadiran</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($pertemuan->absen->sortByDesc('id')->take(5) as $item)
+                            <tr {{-- class="@if($item->mahasiswa->kehadiran < 80) danger @endif --}}">
+                                <td>{{$item->mahasiswa->nim}}</td>
+                                <td>{{$item->mahasiswa->nama}}</td>
+                                <td>{{$item->mahasiswa->kehadiran}}%</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-close">
+                
+            </div>
+            <div class="card-body">
+                <div class="semi-bold h3">Daftar Mahasiswa</div>
+                <h3 class="semi-bold small">Belum Hadir</h3>
+                <table class="table table-striped data-table">
+                    <thead>
+                        <th>No</th>
+                        <th>NIM</th>
+                        <th>Nama</th>
+                        <th>%</th>
+                        <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                        @foreach($pertemuan->ajar->kelas->mahasiswa as $key => $item)
+                        {{dd($item)}}
+                        <tr>
+                            <td>{{$key+1}}</td>
+                            <td>{{$item->nim}}</td>
+                            <td>{{$item->nama}}</td>
+                            <td>%</td>
+                            <td><button class="btn btn-warning" onclick='setStatus({{$item->nim}},"{{$item->id_card}}","{{$item->nama}}")'><i class="fa fa-warning"></i></button></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <hr>
+                <h3 class="semi-bold small">Berhalangan Hadir</h3>
+                <table class="table table-striped data-table">
+                    <thead>
+                        <th>No</th>
+                        <th>NIM</th>
+                        <th>Nama</th>
+                        <th>Status</th>
+                        <th>%</th>
+                        <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                        @foreach($absen->where('status','<>', 1)->values() as $key => $item)
+                        <tr>
+                            <td>{{$key+1}}</td>
+                            <td>{{$item->mahasiswa->nim}}</td>
+                            <td>{{$item->mahasiswa->nama}}</td>
+                            <td>{{($item->status == 2) ? "Sakit" : "Izin"}}</td>
+                            <td>{{$item->mahasiswa->kehadiran}}%</td>
+                            <td><button class="btn btn-info" onclick='infoStatus({{$item->id}},{{$item->mahasiswa->nim}},"{{$item->mahasiswa->nama}}", {{$item->status}})'><i class="fa fa-info"></i></button></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                <hr>
+                <h3 class="semi-bold small">Hadir</h3>
+                <table class="table table-striped data-table">
+                    <thead>
+                        <th>No</th>
+                        <th>NIM</th>
+                        <th>Nama</th>
+                        <th>%</th>
+                        <th>Aksi</th>
+                    </thead>
+                    <tbody>
+                        @foreach($absen->where('status', 1)->values() as $key => $item)
+                        {{dd($item)}}
+                        <tr>
+                            <td>{{$key+1}}</td>
+                            <td>{{$item->mahasiswa->nim}}</td>
+                            <td>{{$item->mahasiswa->nama}}</td>
+                            <td>{{$item->mahasiswa->kehadiran}}%</td>
+                            <td><button class="btn btn-info" onclick='infoStatus({{$item->id}}, {{$item->mahasiswa->nim}},"{{$item->mahasiswa->nama}}", {{$item->status}})'><i class="fa fa-info"></i></button></td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-sm" id="set-mahasiswa-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">Set Kehadiran Mahasiswa</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="" class="control-label col-md-4">
+                            NIM
+                        </label>
+                        <div class="col-md-8">
+                            <input class="form-control" id="modal_id_user" type="text" readonly/>
+                            <input class="form-control" id="modal_id_card" type="hidden" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label col-md-4">
+                            Nama
+                        </label>
+                        <div class="col-md-8">
+                            <input class="form-control" id="modal_name" type="text" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label col-md-4">
+                            Keterangan
+                        </label>
+                        <div class="col-md-8">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="radio" class="" name="alasan" id="" value="1" onclick="setKeterangan(1)">
+                                    <label for="" class="form-label">Hadir</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="radio" class="" name="alasan" id="" value="2" onclick="setKeterangan(2)">
+                                    <label for="" class="form-label">Sakit</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="radio" class="" name="alasan" id="" value="3" onclick="setKeterangan(3)">
+                                    <label for="" class="form-label">Izin</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">Tutup</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-sm" id="info-mahasiswa-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title">Info Mahasiswa</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label for="" class="control-label col-md-4">
+                            NIM
+                        </label>
+                        <div class="col-md-8">
+                            <input class="form-control" id="modal_info_id_user" type="text" readonly/>
+                            <input class="form-control" id="modal_info_id_absen" type="hidden" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label col-md-4">
+                            Nama
+                        </label>
+                        <div class="col-md-8">
+                            <input class="form-control" id="modal_info_nama" type="text" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label col-md-4">
+                            Status
+                        </label>
+                        <div class="col-md-8">
+                            <input class="form-control" id="modal_info_status" type="text" readonly/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="control-label col-md-4">
+                            Keterangan
+                        </label>
+                        <div class="col-md-8">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="radio" class="" name="info_alasan" id="info_alasan_1" value="1" onclick="setInfoKeterangan(1)">
+                                    <label for="" class="form-label">Hadir</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="radio" class="" name="info_alasan" id="info_alasan_2" value="2" onclick="setInfoKeterangan(2)">
+                                    <label for="" class="form-label">Sakit</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="radio" class="" name="info_alasan" id="info_alasan_3" value="3" onclick="setInfoKeterangan(3)">
+                                    <label for="" class="form-label">Izin</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">Tutup</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+@endsection
+@section('custom_script')
+<script>
+    function scanMahasiswa(e) {
+        if (e.keyCode == 13) {
+            id_card = $("#id_card").val();
+            $.ajax({
+                url: '{{url("api/absen")}}',
+                method : "post",
+                data : {
+                    id_pertemuan : {{$pertemuan->id}},
+                    id_card : id_card
+                },
+                success: function(result) {
+                    data = $.parseJSON(result);
+                    $("#id_card").notify(data.data, data.status);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 250);
+                }
+            })
+        }
+    }
+
+    function setStatus(id, id_card, nama) {
+        $("#modal_id_user").val(id);
+        $("#modal_id_card").val(id_card);
+        $("#modal_name").val(nama);
+        $("#set-mahasiswa-modal").modal("show");
+    }
+
+    function setKeterangan(status) {
+        id_card = $("#modal_id_card").val();
+        $.ajax({
+            url: '{{url("absen/$pertemuan->id")}}/' + id_card + "/" + status,
+            success: function(result) {
+                if (result === "true") {
+                    $("#modal_id_user").notify("Tersimpan", "success");
+                } else {
+                    $("#modal_id_user").notify(result, "error");
+                }
+                setTimeout(function() {
+                    location.reload();
+                }, 250);
+            }
+        })
+    }
+
+    function infoStatus(id, nim, nama, status) {
+        if (status == 1) {
+            $("#info_alasan_1").attr("checked", "true");
+            $("#modal_info_status").val("Hadir")
+        } else if (status == 2) {
+            $("#info_alasan_2").attr("checked", "true");
+            $("#modal_info_status").val("Sakit")
+        } else {
+            $("#info_alasan_3").attr("checked", "true");
+            $("#modal_info_status").val("Izin")
+        }
+        console.log(id, nim, nama, status)
+        $("#modal_info_id_user").val(nim)
+        $("#modal_info_id_absen").val(id)
+        $("#modal_info_nama").val(nama)
+        $("#info-mahasiswa-modal").modal("show");
+    }
+
+    function setInfoKeterangan(status) {
+        id_absen = $("#modal_info_id_absen").val();
+        $.ajax({
+            url: '{{url("absen/update")}}/' + id_absen + "/" + status,
+            success: function(result) {
+                if (result === "true") {
+                    $("#modal_info_id_user").notify("Tersimpan", "success");
+                } else {
+                    $("#modal_info_id_user").notify(result, "error");
+                }
+                setTimeout(function() {
+                    location.reload();
+                }, 250);
+            }
+        })
+    }
+</script>
+@endsection
+@section('custom_css')
+    <style>
+        .form-horizontal{
+        display: block !important;
+    }
+</style>
+@endsection

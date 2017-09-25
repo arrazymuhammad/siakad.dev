@@ -1,0 +1,42 @@
+{
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				".htaccess",
+				"Mapping",
+				"artisan",
+				"index.php",
+				"zzz_siakad_backup_2017-09-08.7z",
+				"zzz_siakad_backup_2017-09-24.7z",
+				"system/.env",
+				"system/.env.example",
+				"system/.gitattributes",
+				"system/.gitignore",
+				"system/composer.json",
+				"system/composer.lock",
+				"system/package.json",
+				"system/phpunit.xml",
+				"system/server.php",
+				"system/webpack.mix.js",
+				"system/yarn.lock"
+			],
+			"folder_exclude_patterns":
+			[
+				"system/storage",
+				"system/tests",
+				"system/vendor",
+				"system/bootstrap",
+				"system/config",
+				"system/database",
+				"system/resources",
+				"system/app/Console",
+				"system/app/Exceptions",
+				"system/app/Helper",
+				"system/app/Providers"
+			],
+			"path": "."
+		}
+	]
+}
