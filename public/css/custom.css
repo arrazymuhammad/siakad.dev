@@ -52,3 +52,12 @@ nav.side-navbar ul>li.active>ul>li.active>a{
 	padding: 10px;
 	
 }
+
+section{
+	padding: 25px;
+}
+
+a:focus, a:hover {
+    color: #3b25e6;
+    text-decoration: none;
+}

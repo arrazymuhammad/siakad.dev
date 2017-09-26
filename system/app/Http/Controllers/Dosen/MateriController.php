@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Dosen;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Tr\Ajar;
+use Illuminate\Http\Request;
 
-class TugasController extends Controller
+class MateriController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
+        $data['ajar'] = Ajar::find($id);
         return view('dosen.tugas.index', $data);
     }
 
@@ -22,9 +24,10 @@ class TugasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id_ajar)
     {
-        //
+        $data['ajar'] = Ajar::find($id);
+        return view('dosen.tugas.create', $data);
     }
 
     /**

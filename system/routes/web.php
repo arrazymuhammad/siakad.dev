@@ -18,13 +18,15 @@ Route::get('/', function () {
 
 Route::group(['domain' => 'dosen.siakad.dev', 'namespace' => 'Dosen', 'middleware' => ['auth']], function(){
 		Route::get('/', "DashboardController@index");
-		Route::get('absen', "AbsenController@index");
-		Route::get('absen/{id_pertemuan}', 'AbsenController@absen');
-		Route::post('absen/{id_pertemuan}', 'AbsenController@materi');
-		Route::get('mahasiswa', 'MahasiswaController@index');
-		Route::get('mahasiswa/card-register/{id_kelas?}', 'MahasiswaController@cardRegister');
-		Route::get('mahasiswa/{id_mahasiswa}', 'MahasiswaController@show');
+		Route::get('setting/card-register/{id_kelas?}', 'MahasiswaController@cardRegister');
+		Route::resource('mahasiswa', 'MahasiswaController');
+		Route::resource("absen", "AbsenController");
 		Route::resource("matakuliah", 'MataKuliahController');
+		Route::group(['prefix' => 'matakuliah/{id_ajar}', 'namespace' => 'MataKuliah',], function(){
+			Route::resource("materi", "MateriController");
+			Route::resource("tugas", "TugasController");
+			Route::resource("nilai", "NilaiController");
+		});
 });
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth']], function(){
@@ -39,6 +41,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 	});
 });
 
+
+Route::get("/download/{type}/{id_file}", "\App\Helper\FileManager@download");
 
 Route::get('/dummy', 'Admin\DummyMaster@createUser');
 

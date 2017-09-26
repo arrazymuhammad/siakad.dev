@@ -38,7 +38,13 @@ class PertemuanResource extends Controller
     public function store(Request $req)
     {
         $id_card = $req->id_card;
-        $ajar = Ajar::where('id_card',$id_card)->first();
+        $id_ajar = $req->id_ajar;
+        if ($id_ajar) {
+            $ajar = Ajar::find($id_ajar);
+        } else {
+            $ajar = Ajar::where('id_card',$id_card)->first();
+        }
+
         if($ajar){
             $total_pertemuan = Pertemuan::all();
             $jumlah_pertemuan = Pertemuan::where('id_ajar', $ajar->id)->count();

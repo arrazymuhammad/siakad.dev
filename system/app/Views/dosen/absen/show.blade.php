@@ -4,21 +4,22 @@ Absensi
 @endsection
 @section('content')
 @if($pertemuan->materi == "")
-    @include('dosen.absen.content.materi')
+    @include('dosen.absen.show.materi')
 @else
 <div class="row">
     <div class="col-md-5">
-        @include('dosen.absen.content.card_scan')
+        @include('dosen.absen.show.card_scan')
+        @include('dosen.absen.show.card_tugas')
     </div>
     <div class="col-md-7">
-        @include('dosen.absen.content.card_mahasiswa_belum_hadir')
-        @include('dosen.absen.content.card_mahasiswa_berhalangan_hadir')
-        @include('dosen.absen.content.card_mahasiswa_hadir')
+        @include('dosen.absen.show.card_mahasiswa_belum_hadir')
+        @include('dosen.absen.show.card_mahasiswa_berhalangan_hadir')
+        @include('dosen.absen.show.card_mahasiswa_hadir')
     </div>
 </div>
 
-        @include('dosen.absen.content.modal_info_absensi')
-        @include('dosen.absen.content.modal_set_absensi')
+        @include('dosen.absen.show.modal_info_absensi')
+        @include('dosen.absen.show.modal_set_absensi')
 
 @endif
 @endsection

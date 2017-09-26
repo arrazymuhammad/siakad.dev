@@ -28,7 +28,7 @@ Dashboard
 							<div class="comments" title="Jumlah Mahasiswa"><i class="fa fa-user"></i>{{$item->kelas->mahasiswa->count()}}</div>
 							<div class="project-progress" title="Persentase Kehadiran">
 								<div class="progress">
-									<div role="progressbar" style="width: {{$item->kehadiran}}%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar bg-red"></div>
+									<div role="progressbar" style="width: {{$item->kehadiran}}%; height: 6px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" class="progress-bar {{($item->kehadiran < 80) ? "bg-red":"bg-info"}}"></div>
 								</div>
 								{{$item->kehadiran}}%
 							</div>

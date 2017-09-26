@@ -14,5 +14,6 @@
         <link rel="stylesheet" href="{{url('public/plugins/icons-reference/styles.css')}}">
         {{-- <link rel="stylesheet" href="https://file.myfontastic.com/da58YPMQ7U5HY8Rb6UxkNf/icons.css"> --}}
         <link href="{{url('public/plugins/datatables/datatables.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{url('public/plugins/dattimepicker/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet" type="text/css" />
 
         @yield('custom_css')

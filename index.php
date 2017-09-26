@@ -9,6 +9,7 @@
 
 define('LARAVEL_START', microtime(true));
 setlocale(LC_TIME, 'id');
+
 /*
 |--------------------------------------------------------------------------
 | Register The Auto Loader
@@ -24,7 +25,7 @@ setlocale(LC_TIME, 'id');
 $system_dir = __DIR__.'/system';
 
 require $system_dir.'/vendor/autoload.php';
-
+Carbon\Carbon::setLocale('id');
 /*
 |--------------------------------------------------------------------------
 | Turn On The Lights
@@ -41,6 +42,7 @@ $app = require_once $system_dir.'/bootstrap/app.php';
 $app->bind('path.public', function(){
 	return __DIR__;
 });
+
 /*
 |--------------------------------------------------------------------------
 | Run The Application

@@ -5,7 +5,7 @@
     <div class="card-body">
         <div class="semi-bold h3">{{$pertemuan->ajar->nama}}</div>
         <div class="semi-bold h5"><span>Pertemuan Ke - {{$pertemuan->pertemuan_no}}</span></div>
-        <form action="" method="post" class="form-horizontal">
+        <form action="{{url('absen')}}" method="post" class="form-horizontal">
             {{csrf_field()}}
             <input type="hidden" name="id_pertemuan" value="{{$pertemuan->id}}">
             <div class="form-group">

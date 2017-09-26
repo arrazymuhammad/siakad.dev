@@ -33,7 +33,7 @@ Absensi
                 <select name="kode_mk" id="" class="form-control" onchange="selectKelas(this.value)">
                     <option value="">Pilih Kelas</option>
                     @foreach($ajar as $item)
-                    <option value="{{$item->id_card}}">{{$item->nama}}</option>
+                    <option value="{{$item->id}}">{{$item->nama}}</option>
                     @endforeach
                 </select>
             </div>
@@ -98,16 +98,17 @@ Absensi
             if (e.keyCode == 13) {
                 id_card = $("#kode_mk").val();
                 // alert(id_card)
-                selectKelas(id_card);
+                selectKelas(null,id_card);
 
             }
         }
-        function selectKelas(id) {
+        function selectKelas(id_ajar, id_card=null) {
             $.ajax({
                 url: '{{url("api/pertemuan")}}',
                 method : "post",
                 data : {
-                    id_card : id,
+                    id_ajar : id_ajar,
+                    id_card : id_card,
                 },
                 success : function(result) {
                     console.log(result);

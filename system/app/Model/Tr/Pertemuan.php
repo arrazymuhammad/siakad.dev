@@ -15,7 +15,12 @@ class Pertemuan extends Model
 
     public function Absen()
     {
-    	return $this->hasMany('\App\Model\Tr\Absen', 'id_pertemuan');
+        return $this->hasMany('\App\Model\Tr\Absen', 'id_pertemuan');
+    }
+
+    public function Tugas()
+    {
+        return $this->hasOne('\App\Model\Tr\Tugas', 'id_pertemuan');
     }
 
     public function Ajar()

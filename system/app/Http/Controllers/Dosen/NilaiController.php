@@ -4,21 +4,19 @@ namespace App\Http\Controllers\Dosen;
 
 use App\Http\Controllers\Controller;
 use App\Model\Tr\Ajar;
-use Auth;
 use Illuminate\Http\Request;
 
-class MataKuliahController extends Controller
+class NilaiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        $data['ajar'] = Auth::user()->dosen->ajar;
-        // dd($data['ajar'][0]->kehadiran);
-        return view('dosen.matakuliah.index', $data);
+        $data['ajar'] = Ajar::find($id);
+        return view('dosen.tugas.index', $data);
     }
 
     /**
@@ -26,9 +24,10 @@ class MataKuliahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id_ajar)
     {
-        //
+        $data['ajar'] = Ajar::find($id);
+        return view('dosen.tugas.create', $data);
     }
 
     /**
@@ -50,9 +49,8 @@ class MataKuliahController extends Controller
      */
     public function show($id)
     {
-        $data['ajar'] = Ajar::find($id);
-        return view('dosen.matakuliah.show', $data);
-    }   
+        //
+    }
 
     /**
      * Show the form for editing the specified resource.

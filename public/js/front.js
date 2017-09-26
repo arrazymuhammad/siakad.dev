@@ -128,4 +128,10 @@ $(document).ready(function () {
         window.open($(this).attr("href"));
     });
 
+    $('.datetime').datetimepicker({
+        daysOfWeekDisabled: [0, 6],
+        format: 'DD MMM YYYY HH:mm',
+        inline: true,
+        sideBySide: true,
+    });
 });

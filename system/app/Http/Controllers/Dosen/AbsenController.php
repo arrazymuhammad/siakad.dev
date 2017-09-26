@@ -35,25 +35,17 @@ class AbsenController extends Controller
         return view('dosen.absen.index', $data);
     }
 
-    public function absen($id_pertemuan)
+    public function show($id_pertemuan)
     {
-        $data['pertemuan'] = 
-        $pertemuan = 
-        Pertemuan::find($id_pertemuan);
+        Carbon::setLocale('id');
+        $data['pertemuan'] = $pertemuan = Pertemuan::find($id_pertemuan);
         if(!$pertemuan) abort(404);
-        $absen = $pertemuan->absen->pluck('id_mahasiswa')->toArray();
-        $data['mahasiswa'] = $pertemuan
-                                ->ajar
-                                ->kelas
-                                ->mahasiswa
-                                ->whereNotIn('id', $absen)
-                                ->values();
-        return view('dosen.absen.absen', $data);
+        return view('dosen.absen.show', $data);
     }
 
-    public function materi($id_pertemuan, Request $req)
+    public function store(Request $req)
     {
-        $pertemuan = Pertemuan::find($id_pertemuan);
+        $pertemuan = Pertemuan::find($req->id_pertemuan);
         $pertemuan->materi = $req->materi;
         $pertemuan->save();
         return redirect()->back();
